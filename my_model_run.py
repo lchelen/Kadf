@@ -1,5 +1,5 @@
 import sys
-sys.path.append('C://Users//lc//Desktop//transfer_demand//basic_code')
+sys.path.append('basic_code')
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
@@ -22,13 +22,13 @@ def set_random_seed(seed):
 args = get_parser().parse_args()
 set_random_seed(args.seed)
 
-path = 'C://Users//lc//Desktop//transfer_demand//demand_data//'
-file = path + 'lightrail_demand_1h.csv'
-model_file = 'C://Users//lc//Desktop//transfer_demand//my_lstm_save_model//bus_encode_lstm_model'
+path = 'demand_data//'
+file = path + 'demand_1h.csv'
+model_file = 'bus_encode_lstm_model'
 data, label, train_data, train_label, validate_data, validate_label, test_data, test_label, sc = load_data.load(file, args.lag)
 args.num_nodes = data.shape[2]
 
-beta = 10
+beta = 1
 
 model1 = encoder(input_size = args.num_nodes, hidden_size = 64)
 model2 = LSTMModel(input_dim = 64, hidden_dim = 64, layer_dim = 1, output_dim = 472)
